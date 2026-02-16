@@ -18,5 +18,15 @@ class FibonacciServiceTest {
         Assertions.assertEquals(1, result)
     }
 
-    // TODO - Test with greater numbers and test edge cases
+    @Test
+    fun `should return 0 when n is 0`() {
+        // given
+        // when
+        val result: Int = underTest.fibonacci(0)
+        // then
+        Assertions.assertEquals(0, result)
+    }
+
+
+
 }

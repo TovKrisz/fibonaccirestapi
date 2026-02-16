@@ -6,6 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.HttpStatus
 import org.springframework.web.client.RestClientException
 import org.springframework.web.client.RestTemplate
+import org.springframework.web.client.HttpClientErrorException
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 class IntegrationTest {
@@ -34,7 +35,7 @@ class IntegrationTest {
 
         // when
         val thrown = Assertions.assertThrows(
-            RestClientException::class.java
+            HttpClientErrorException::class.java
         ) {
             restTemplate.getForEntity(
                 "http://localhost:8080/fibonacci?n=47",
@@ -44,6 +45,7 @@ class IntegrationTest {
 
         // then
         Assertions.assertNotNull(thrown)
+        Assertions.assertEquals(HttpStatus.BAD_REQUEST, thrown.statusCode)
     }
 
 }
